@@ -1,0 +1,213 @@
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: #F7F5F2; /* <-- CORREGIDO: Fondo de la página color hueso */
+    color: #4A4A4A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow: hidden;
+}
+/* Elementos decorativos (Hojas) */
+.leaf {
+    position: absolute;
+    width: 150px;
+    opacity: 0.7;
+    /* z-index: se controla ahora por la superposición de paneles */
+}
+.top-right {
+    top: 22px;
+    right: -16px;
+    transform: rotate(210deg) scaleX(-1);
+}
+.bottom-left {
+    bottom: 22px;
+    left: -13px;
+    transform: rotate(40deg) scaleX(-1);
+}
+
+/* Tu Tarjeta de Invitación Base (ahora interna) */
+/* Tu Tarjeta de Invitación Base (ahora interna) */
+.invitation-card {
+    position: relative;
+    background-color: #FFFFFF;
+     /* <-- CORREGIDO: Fondo de la tarjeta ahora es blanco */
+    padding: 40px 20px;
+    max-width: 400px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Tipografía de la invitación */
+.names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #333;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+}
+.sub-heading {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+}
+.details p {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+/* Botones */
+.buttons-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.btn-custom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 8px 0;
+    padding: 12px;
+    border: 1px solid #6c757d;
+    color: #4A4A4A;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+.btn-custom:hover {
+    background-color: #4A4A4A;
+    color: #fff;
+    border-color: #4A4A4A;
+}
+
+/* Modales */
+.modal-header, .modal-body, .modal-content {
+    border: none;
+    font-family: 'Raleway', sans-serif;
+}
+.modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+}
+
+
+
+/* --- ESTILOS PARA ANIMACIÓN GATEFOLD VERTICAL --- */
+
+.gatefold-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: 600px; /* Altura FINAL de la invitación abierta */
+    perspective: 1500px;
+}
+
+/* Capa de fondo con la invitación completa */
+.invitation-content-full {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Sigue siendo invisible al inicio */
+    /* AÑADIDO: "Escondemos" la invitación en una línea horizontal en el centro */
+    clip-path: inset(50% 0 50% 0); 
+    /* AÑADIDO: Ahora animamos el clip-path y la opacidad */
+    transition: clip-path 0.7s ease-in-out 0.2s, opacity 0.3s ease-in-out 0.2s;
+}
+
+/* Contenedor de la portada que se puede clickear */
+.cover-gate {
+    position: absolute;
+    top: 25%; /* Se posiciona en el centro, ocupando la mitad de la altura */
+    left: 0;
+    width: 100%;
+    height: 50%; /* La portada cerrada mide la mitad de la altura total */
+    cursor: pointer;
+    transform-style: preserve-3d;
+    z-index: 10;
+    transition: visibility 0s 12s; /* Se oculta después de 1s */
+}
+
+/* Estilo común para las dos compuertas/solapas */
+.gate {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background-color: #FFFFFF; /* <-- CORREGIDO: Fondo de la portada ahora es blanco */
+    border: 1px solid #ddd;
+    overflow: hidden;
+    /* backface-visibility:  hidden; */
+    transition: transform 5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Compuerta SUPERIOR */
+.top-gate {
+    top: 0;
+    transform-origin: top center; /* <-- La bisagra está ARRIBA */
+    border-radius: 10px 10px 0 0;
+}
+.top-gate .front-content {
+    align-self: flex-end;
+    padding-bottom: 20px;
+}
+
+/* Compuerta INFERIOR */
+.bottom-gate {
+    bottom: 0;
+    transform-origin: bottom center; /* <-- La bisagra está ABAJO */
+    border-radius: 0 0 10px 10px;
+}
+.bottom-gate .front-content {
+    align-self: flex-start;
+    padding-top: 20px;
+}
+
+/* Contenido de la portada */
+.front-content { font-family: 'Raleway', sans-serif; color: #4A4A4A; }
+.front-text { font-size: 1.2rem; margin: 0; }
+.front-names { font-family: 'Cormorant Garamond', serif; font-size: 4rem; margin: 0; }
+.bottom-gate small { font-size: 0.9rem; opacity: 0.7; }
+
+/* --- ESTADO ABIERTO --- */
+.gatefold-container.is-open .top-gate {
+    transform: rotateX(180deg); /* <-- CORREGIDO: Gira hacia ARRIBA y ADELANTE */
+}
+.gatefold-container.is-open .bottom-gate {
+    transform: rotateX(-180deg); /* <-- CORREGIDO: Gira hacia ABAJO y ADELANTE */
+}
+.gatefold-container.is-open .cover-gate {
+    /visibility: hidden;
+    pointer-events: none;
+}
+/* --- AÑADE ESTA NUEVA REGLA --- */
+.gatefold-container.is-open .invitation-content-full {
+    opacity: 1; /* Se vuelve visible */
+    clip-path: inset(0 0 0 0); /* <-- CORREGIDO: La máscara se expande para revelar todo */
+}
+
+/* (El resto de tus estilos para .invitation-card, etc., no necesitan cambios) */
+.invitation-card {
+    position: relative;
+    background-color: #FFFFFF;
+    padding: 40px 20px;
+    max-width: 400px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px; /* <-- AÑADIDO PARA LOS BORDES REDONDEADOS */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
