@@ -30,7 +30,8 @@
                 <p><strong>31 de enero 2025</strong></p>
                 <p>12:00 hrs</p>
                 <p>Parcela Los Castaños,<br>Colbún – San Clemente</p>
-                <small>Confirma tu asistencia hasta el 1 de noviembre.</small>
+                <p><em>Vestimenta: semiformal</em></p>
+                
             </div>
 
             <div class="buttons-section mt-2">
@@ -44,7 +45,11 @@
                     <i class="fas fa-gift me-2"></i>Lista de regalos
                 </button>
             </div>
+            <div class="mt-2">
+            <small>Confirma tu asistencia hasta el 1 de noviembre.</small>
         </div>
+        </div>
+        
     </main>
 
     <div class="modal fade" id="songModal" tabindex="-1">
@@ -55,15 +60,17 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Qué canción no puede faltar en la fiesta?</p>
-                    <form action="URL_DE_TU_GOOGLE_FORMS" target="_blank">
-                         <input type="text" class="form-control" name="entry.ID_DE_LA_PREGUNTA" placeholder="Nombre de la canción y artista" required>
-                         <button type="submit" class="btn btn-custom mt-3">Enviar sugerencia</button>
-                    </form>
-                    <small class="form-text text-muted mt-2 d-block">
-                        Se abrirá una nueva pestaña para confirmar tu envío.
-                    </small>
-                </div>
+                    <p>Agrega tu canción directamente a nuestra lista colaborativa de Spotify:</p>
+                    <a href="https://spotify.link/QEoFgeZUwXb"
+                       target="_blank" class="btn btn-custom mt-2">
+                       <i class="fab fa-spotify me-2"></i>Abrir lista de Spotify
+                    </a>
+                    <iframe style="border-radius:12px; margin-top: 15px;"
+                        src="https://open.spotify.com/embed/playlist/QEoFgeZUwXb?utm_source=generator"
+                        width="100%" height="380" frameborder="0"
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                  </div>
+                  
             </div>
         </div>
     </div>
@@ -73,20 +80,66 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Lista de Regalos</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Tu presencia es nuestro mejor regalo. Pero si deseas obsequiarnos algo, puedes hacerlo a través de:</p>
-                    <ul class="list-unstyled">
-                        <li>🎁 <strong>Opción 1:</strong> Tienda [Nombre de la tienda] (N° de novios: XXXXX)</li>
-                        <li>🏦 <strong>Opción 2:</strong> Transferencia bancaria:</li>
-                        <li><strong>Banco:</strong> [Nombre del Banco]</li>
-                        <li><strong>Cuenta Corriente:</strong> [Número de cuenta]</li>
-                        <li><strong>Nombre:</strong> [Titular de la cuenta]</li>
-                        <li><strong>RUT:</strong> [RUT del titular]</li>
-                    </ul>
+                    <p>Elige con cariño el regalo que te gustaría aportar y realiza la transferencia directa a nuestra cuenta.</p>
+                    
+                    <div class="gift-list mb-3">
+                        <table class="table table-striped align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Regalo</th>
+                                    <th>Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Fin de semana en el lago</td><td>$250.000</td></tr>
+                                <tr><td>Especialización de epistemología jurídica</td><td>$200.000</td></tr>
+                                <tr><td>Par de lentes de género</td><td>$150.000</td></tr>
+                                <tr><td>Dos sesiones de masaje panda</td><td>$100.000</td></tr>
+                                <tr><td>Excursión al Mirador el Águila</td><td>$90.000</td></tr>
+                                <tr><td>Maratón de cine 3D</td><td>$80.000</td></tr>
+                                <tr><td>Chaleco de la Nona</td><td>$70.000</td></tr>
+                                <tr><td>Dos pares de pantuflas de capibara</td><td>$60.000</td></tr>
+                                <tr><td>Pajaritos de la Tere para fiestas patrias</td><td>$55.000</td></tr>
+                                <tr><td>Churrascas de la Mary</td><td>$50.000</td></tr>
+                                <tr><td>Chanchito en piedra con sopaipillas</td><td>$45.000</td></tr>
+                                <tr><td>Surtido de pasteles y rollitos de canela de la Cata</td><td>$40.000</td></tr>
+                                <tr><td>Strudel de la abuelita nana</td><td>$35.000</td></tr>
+                                <tr><td>Completos de Ibiza</td><td>$30.000</td></tr>
+                                <tr><td>Mateada con la Ita</td><td>$25.000</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="account-info p-3 rounded mb-2" style="background: #f8f9fa; border: 1px solid #ebebeb;">
+                        <div id="cuenta-cliente" style="word-break: break-all;">
+                            <p class="mb-1"><strong>Datos de transferencia:</strong></p>
+                            <p class="mb-0"><strong>Nombre:</strong> Yasna Paz Roco Gonzalez</p>
+                            <p class="mb-0"><strong>RUT:</strong> 15.906.595-2</p>
+                            <p class="mb-0"><strong>Cuenta Corriente:</strong> 0 000 91 06645 9</p>
+                            <p class="mb-0"><strong>Banco:</strong> Santander</p>
+                        </div>
+                        <button class="btn btn-custom mt-3" onclick="copiarCuenta()">Copiar información de la cuenta</button>
+                    </div>
                 </div>
             </div>
+            
+            <script>
+            function copiarCuenta() {
+                const contenido = `Nombre: Yasna Paz Roco Gonzalez
+            RUT: 15.906.595-2
+            Cuenta Corriente: 0 000 91 06645 9
+            Banco: Santander`;
+                navigator.clipboard.writeText(contenido).then(function() {
+                    alert('Información de transferencia copiada');
+                }, function(err) {
+                    alert('No se pudo copiar. Intenta seleccionar y copiar manualmente.');
+                });
+            }
+            </script>
+            
         </div>
     </div>
 
