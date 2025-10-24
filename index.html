@@ -1,149 +1,517 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestra Boda - Rodrigo & Yasna</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nuestra Boda - Rodrigo & Yasna</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+  body {
+    font-family: "Cormorant Garamond", serif;
+    background: #faf7f4;
+  color: #3a3a3a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+.gatefold-vertical-container {
+  position: relative;
+  width: 92vw;
+  max-width: 320px;
+  height: min(300px, 80vw);
+  max-height: 300px;
+  perspective: 1200px;
+  margin: 0 auto;
+}
+
+.door {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  left: 0;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 1.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+  z-index: 3;
+  box-shadow: 0 2px 14px rgba(180, 180, 180, 0.07);
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backface-visibility: visible;
+}
+
+.door-top {
+  top: 0;
+  transform-origin: top;
+}
+
+.door-bottom {
+  bottom: 0;
+  transform-origin: bottom;
+}
+
+.door .front,
+.door .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backface-visibility: hidden;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.door .front {
+  position: relative;
+  background: url("img/textura.jpg");
+  z-index: 2;
+}
+
+.door.door-top .front::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-top: 1px solid #e9e7e3;
+  border-left: 1px solid #e9e7e3;
+  border-right: 1px solid #e9e7e3;
+  border-bottom: none;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.door.door-bottom .front::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 1px solid #e9e7e3;
+  z-index: -1; /* Cambia a negativo */
+  pointer-events: none;
+}
+
+.door .back {
+  background: url("img/textura.jpg");
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.gatefold-vertical-container.is-open .door-top {
+  transform: rotateX(180deg);
+}
+
+.gatefold-vertical-container.is-open .door-bottom {
+  transform: rotateX(-180deg);
+}
+
+.invitation-full {
+  position: absolute;
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  z-index: 1;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-left: 1px solid #e9e7e3;
+  border-right: 1px solid #e9e7e3;
+}
+
+.invitation-full::before {
+  content: "";
+  position: absolute;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("img/textura.jpg");
+  background-size: cover;
+  background-position: center;
+  transform: scaleY(-1);
+  z-index: -1;
+}
+
+.top-back, .bottom-back {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40px;
+  flex-shrink: 0;
+}
+.invitation-inside {
+  flex: 1;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly; /* Distribuye uniformemente */
+  align-items: center;
+  min-height: 0;
+}
+
+.door .front {
+  position: relative;
+  background: url("img/textura.jpg");
+  z-index: 2;
+}
+
+.door.door-top .front::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-top: 1px solid #e9e7e3;
+  border-left: 1px solid #e9e7e3;
+  border-right: 1px solid #e9e7e3;
+  border-bottom: none;
+  z-index: -1; /* Cambia a negativo para que quede detrás de todo el contenido */
+  pointer-events: none;
+}
+
+.door.door-bottom .front::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 1px solid #e9e7e3;
+  z-index: -1; /* Cambia a negativo */
+  pointer-events: none;
+}
+
+.door.door-bottom .back {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-bottom: 1px solid #e9e7e3;
+  border-left: 1px solid #e9e7e3;
+  border-right: 1px solid #e9e7e3;  z-index: -1; /* Cambia a negativo */
+  pointer-events: none;
+}
+
+.door.door-top .back {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-top: 1px solid #e9e7e3;
+  border-left: 1px solid #e9e7e3;
+  border-right: 1px solid #e9e7e3;  z-index: -1; /* Cambia a negativo */
+  pointer-events: none;
+}
+
+.estampilla {
+  position: absolute;
+  height: 40%;
+  object-fit: contain;
+  z-index: 10; /* Asegura que esté por encima del contenido normal */
+  pointer-events: none;
+}
+
+.estampilla.top {
+  clip-path: inset(0 0 50% 0);
+  top: 121px;
+}
+
+.estampilla.bottom {
+  clip-path: inset(50% 0 0 0);
+  top: -30px;
+}
+
+.guest-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #3b3a3a;
+  margin-bottom: -8px;
+  text-shadow: 1px 1px 4px rgba(150, 150, 150, 0.3);
+}
+
+/* Responsive móvil */
+@media (max-width: 600px) {
+  .gatefold-vertical-container {
+    width: 98vw;
+    height: 400px;
+  }
+  .invitation-inside {
+    padding: 12px;
+    font-size: 16px;
+  }
+}
+
+.names {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #333;
+      line-height: 1.1;
+    }
+    .btn-custom {
+      border: 1px solid #6c757d;
+      color: #4a4a4a;
+      background-color: #ffffff;
+      border-radius: 8px;
+      margin: 6px 0;
+      padding: 10px;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .btn-custom:hover {
+      background-color: #4a4a4a;
+      color: #fff;
+      border-color: #4a4a4a;
+    }
+
+    .modal-content {
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .buttons-section {
+  width: 100%;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+</style>
 </head>
+
 <body>
+  <div class="gatefold-vertical-container" id="gatefoldContainer">
+    <!-- Puerta superior -->
+    <div class="door door-top" onclick="toggleGatefold()">
+      <div class="front">
+        <p class="guest-name">Sr/a:</p>
+        <img src="img/estampilla.webp" alt="Estampilla" class="estampilla top" />
 
-
-    <main class="container text-center">
+      </div>
+      <div class="back text-center">
+        <img src="img/leaf4.webp" alt="Decoración Superior" style="position: absolute;height: 124px;transform: rotate(180deg);top: 0px;left: 200px;">
         
-        <div class="invitation-card">
-                <img src="img/t.webp" class="leaf top-right" alt="Decoración">
-    <img src="img/t.webp" class="leaf bottom-left" alt="Decoración">
-
-            <h1 class="names">Yasna<br>y Rodrigo</h1>
-            <p class="sub-heading">Se casan</p>
-
-            <div class="details">
-                <p><strong>31 de enero 2025</strong></p>
-                <p>12:00 hrs</p>
-                <p>Parcela Los Castaños,<br>Colbún – San Clemente</p>
-                <p><em>Vestimenta: semiformal</em></p>
-                
-            </div>
-
-            <div class="buttons-section mt-2">
-                <a href="https://maps.app.goo.gl/7EL6WuvnDEVWjcnZ9" target="_blank" class="btn btn-custom">
-                    <i class="fas fa-map-marker-alt me-2"></i>Cómo llegar
-                </a>
-                <button type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#songModal">
-                    <i class="fas fa-music me-2"></i>¿Cuál es tu infaltable?
-                </button>
-                <button type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#giftsModal">
-                    <i class="fas fa-gift me-2"></i>Lista de regalos
-                </button>
-            </div>
-            <div class="mt-2">
-            <small>Confirma tu asistencia hasta el 1 de noviembre.</small>
-        </div>
-        </div>
-        
-    </main>
-
-    <div class="modal fade" id="songModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">¡Ayúdanos con la música!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Agrega tu canción directamente a nuestra lista colaborativa de Spotify:</p>
-                    <a href="https://spotify.link/QEoFgeZUwXb"
-                       target="_blank" class="btn btn-custom mt-2">
-                       <i class="fab fa-spotify me-2"></i>Abrir lista de Spotify
-                    </a>
-                    <iframe style="border-radius:12px; margin-top: 15px;"
-    src="https://open.spotify.com/embed/playlist/7jooFaRVROBFtzcLEHR5fq"
-    width="100%" height="380" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-</iframe>
-
-                  </div>
-                  
-            </div>
-        </div>
+        <h1 class="names" style="margin-top: 65px;">Yasna y Rodrigo</h1>
+        <p class="sub-heading">¡Nos casamos! <br>y nos encantaría celebrar contigo.</p>
+      
+      </div>
     </div>
 
-    <div class="modal fade" id="giftsModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Lista de Regalos</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Elige con cariño el regalo que te gustaría aportar y realiza la transferencia directa a nuestra cuenta.</p>
-                    
-                    <div class="gift-list mb-3">
-                        <table class="table table-striped align-middle">
-                            <thead>
-                                <tr>
-                                    <th>Regalo</th>
-                                    <th>Monto</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>Fin de semana en el lago</td><td>$250.000</td></tr>
-                                <tr><td>Especialización de epistemología jurídica</td><td>$200.000</td></tr>
-                                <tr><td>Par de lentes de género</td><td>$150.000</td></tr>
-                                <tr><td>Dos sesiones de masaje panda</td><td>$100.000</td></tr>
-                                <tr><td>Excursión al Mirador el Águila</td><td>$90.000</td></tr>
-                                <tr><td>Maratón de cine 3D</td><td>$80.000</td></tr>
-                                <tr><td>Chaleco de la Nona</td><td>$70.000</td></tr>
-                                <tr><td>Dos pares de pantuflas de capibara</td><td>$60.000</td></tr>
-                                <tr><td>Pajaritos de la Tere para fiestas patrias</td><td>$55.000</td></tr>
-                                <tr><td>Churrascas de la Mary</td><td>$50.000</td></tr>
-                                <tr><td>Chanchito en piedra con sopaipillas</td><td>$45.000</td></tr>
-                                <tr><td>Surtido de pasteles y rollitos de canela de la Cata</td><td>$40.000</td></tr>
-                                <tr><td>Strudel de la abuelita nana</td><td>$35.000</td></tr>
-                                <tr><td>Completos de Ibiza</td><td>$30.000</td></tr>
-                                <tr><td>Mateada con la Ita</td><td>$25.000</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <div class="account-info p-3 rounded mb-2" style="background: #f8f9fa; border: 1px solid #ebebeb;">
-                        <div id="cuenta-cliente" style="word-break: break-all;">
-                            <p class="mb-1"><strong>Datos de transferencia:</strong></p>
-                            <p class="mb-0"><strong>Nombre:</strong> Yasna Paz Roco Gonzalez</p>
-                            <p class="mb-0"><strong>RUT:</strong> 15.906.595-2</p>
-                            <p class="mb-0"><strong>Cuenta Corriente:</strong> 0 000 91 06645 9</p>
-                            <p class="mb-0"><strong>Banco:</strong> Santander</p>
-                        </div>
-                        <button class="btn btn-custom mt-3" onclick="copiarCuenta()">Copiar información de la cuenta</button>
-                    </div>
-                </div>
-            </div>
-            
-            <script>
-            function copiarCuenta() {
-                const contenido = `Nombre: Yasna Paz Roco Gonzalez
-            RUT: 15.906.595-2
-            Cuenta Corriente: 0 000 91 06645 9
-            Banco: Santander`;
-                navigator.clipboard.writeText(contenido).then(function() {
-                    alert('Información de transferencia copiada');
-                }, function(err) {
-                    alert('No se pudo copiar. Intenta seleccionar y copiar manualmente.');
-                });
-            }
-            </script>
-            
+    <!-- Puerta inferior -->
+    <div class="door door-bottom" onclick="toggleGatefold()">
+      <div class="front">
+        <img src="img/estampilla.webp" alt="Estampilla" class="estampilla bottom" />
+        <p class="guest-name text-center" id="guestNameBottom"></p>      
+      </div>
+      <div class="back text-center">
+
+
+        <div class="mt-2">
+          <p style="font-size: 0.85rem; font-style: italic; color: #5a5a5a; margin-top: 10px;">
+            Vestimenta: semiformal
+          </p>
+          <div style="margin-top: 14px; margin-bottom: 51px">
+            <small style="font-size: 0.75rem; color: #6a6a6a;">
+              Confirma tu asistencia hasta el 15 de diciembre.
+            </small>
+          </div>
         </div>
+        <img src="img/leaf4.webp" alt="[translate:Decoración Inferior]" style="position: absolute;height: 124px;top: 25px;left: 0px;" />
+      </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Invitación interior -->
+<!-- Invitación interior -->
+<div class="invitation-full">
+
+  
+  <div class="invitation-inside">
+    <div style="text-align: center;">
+      <p style="font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; color: #2c2c2c;">
+        31 de enero 2026
+      <span style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 500;">
+        a las 12:00 hrs
+      </p>
+      <p style="font-size: 0.9rem; margin-bottom: 0; line-height: 1.5;">
+        Parcela Los Castaños, Colbún – San Clemente
+      </p>
+    </div>
+    
+    <!-- Botones -->
+    <div class="buttons-section">
+      <a 
+        href="https://maps.app.goo.gl/7EL6WuvnDEVWjcnZ9" 
+        target="_blank" 
+        class="btn btn-custom">
+        <i class="fas fa-map-marker-alt me-2"></i>Cómo llegar
+      </a>
+      
+      <button 
+        type="button" 
+        class="btn btn-custom" 
+        data-bs-toggle="modal" 
+        data-bs-target="#songModal">
+        <i class="fas fa-music me-2"></i>¿Cuál es tu infaltable?
+      </button>
+      
+      <button 
+        type="button" 
+        class="btn btn-custom" 
+        data-bs-toggle="modal" 
+        data-bs-target="#giftsModal">
+        <i class="fas fa-gift me-2"></i>Lista de regalos
+      </button>
+    </div>
+    
+   
+  </div>
+  
+
+</div>
+    
+  </div>
+<!-- MODAL MÚSICA -->
+<div class="modal fade" id="songModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 1.1rem;">¡Ayúdanos con la música!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="padding: 16px;">
+        <p style="font-size: 0.9rem; margin-bottom: 12px;">
+          Agrega tu canción directamente a nuestra lista colaborativa de Spotify:
+        </p>
+        <a href="https://spotify.link/QEoFgeZUwXb"
+           target="_blank" 
+           class="btn btn-custom" 
+           style="font-size: 0.85rem; padding: 8px 12px; margin-bottom: 12px; width: 100%;">
+          <i class="fab fa-spotify me-2"></i>Abrir lista de Spotify
+        </a>
+        <iframe 
+          style="border-radius: 8px; margin-top: 8px;"
+          src="https://open.spotify.com/embed/playlist/7jooFaRVROBFtzcLEHR5fq"
+          width="100%" 
+          height="450px" 
+          frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+        </iframe>
+        
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL REGALOS -->
+<div class="modal fade" id="giftsModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 1.1rem;">Lista de Regalos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" style="padding: 16px;">
+        <p style="font-size: 0.85rem; margin-bottom: 12px;">
+          Elige con cariño el regalo que te gustaría aportar y realiza la transferencia directa a nuestra cuenta.
+        </p>
+        
+        <div class="gift-list mb-3" style="max-height: 280px; overflow-y: auto;">
+          <table class="table table-striped align-middle" style="font-size: 0.8rem;">
+            <thead style="position: sticky; top: 0; background: white; z-index: 10;">
+              <tr>
+                <th style="padding: 8px;">Regalo</th>
+                <th style="padding: 8px; text-align: right;">Monto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="padding: 6px;">Fin de semana en el lago</td><td style="padding: 6px; text-align: right;">$250.000</td></tr>
+              <tr><td style="padding: 6px;">Especialización de epistemología jurídica</td><td style="padding: 6px; text-align: right;">$200.000</td></tr>
+              <tr><td style="padding: 6px;">Par de lentes de género</td><td style="padding: 6px; text-align: right;">$150.000</td></tr>
+              <tr><td style="padding: 6px;">Dos sesiones de masaje panda</td><td style="padding: 6px; text-align: right;">$100.000</td></tr>
+              <tr><td style="padding: 6px;">Excursión al Mirador el Águila</td><td style="padding: 6px; text-align: right;">$90.000</td></tr>
+              <tr><td style="padding: 6px;">Maratón de cine 3D</td><td style="padding: 6px; text-align: right;">$80.000</td></tr>
+              <tr><td style="padding: 6px;">Chaleco de la Nona</td><td style="padding: 6px; text-align: right;">$70.000</td></tr>
+              <tr><td style="padding: 6px;">Dos pares de pantuflas de capibara</td><td style="padding: 6px; text-align: right;">$60.000</td></tr>
+              <tr><td style="padding: 6px;">Pajaritos de la Tere para fiestas patrias</td><td style="padding: 6px; text-align: right;">$55.000</td></tr>
+              <tr><td style="padding: 6px;">Churrascas de la Mary</td><td style="padding: 6px; text-align: right;">$50.000</td></tr>
+              <tr><td style="padding: 6px;">Chanchito en piedra con sopaipillas</td><td style="padding: 6px; text-align: right;">$45.000</td></tr>
+              <tr><td style="padding: 6px;">Surtido de pasteles y rollitos de canela de la Cata</td><td style="padding: 6px; text-align: right;">$40.000</td></tr>
+              <tr><td style="padding: 6px;">Strudel de la abuelita nana</td><td style="padding: 6px; text-align: right;">$35.000</td></tr>
+              <tr><td style="padding: 6px;">Completos de Ibiza</td><td style="padding: 6px; text-align: right;">$30.000</td></tr>
+              <tr><td style="padding: 6px;">Mateada con la Ita</td><td style="padding: 6px; text-align: right;">$25.000</td></tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="account-info p-2 rounded mb-2" style="background: #f8f9fa; border: 1px solid #ebebeb; font-size: 0.8rem;">
+          <div id="cuenta-cliente" style="word-break: break-all;">
+            <p class="mb-1" style="font-size: 0.85rem;"><strong>Datos de transferencia:</strong></p>
+            <p class="mb-0"><strong>Nombre:</strong> Yasna Paz Roco Gonzalez</p>
+            <p class="mb-0"><strong>RUT:</strong> 15.906.595-2</p>
+            <p class="mb-0"><strong>Cuenta Corriente:</strong> 0 000 91 06645 9</p>
+            <p class="mb-0"><strong>Banco:</strong> Santander</p>
+          </div>
+          <button 
+            class="btn btn-custom mt-2" 
+            onclick="copiarCuenta()"
+            style="font-size: 0.8rem; padding: 6px 10px; width: 100%;">
+            Copiar información de la cuenta
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script>
+    function toggleGatefold() {
+      document.getElementById("gatefoldContainer").classList.toggle("is-open");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const nombre = params.get("nombre");
+  
+  const guestNameBottom = document.getElementById("guestNameBottom");
+  
+  if (nombre) {
+    // Verifica si hay " y " en el nombre
+    if (nombre.includes(" y ")) {
+      // Divide por " y "
+      const nombres = nombre.split(" y ");
+      
+      // Crea el HTML con dos párrafos y la "y" entre ellos (márgenes reducidos)
+      guestNameBottom.innerHTML = `
+        <p class="guest-name" >${nombres[0].trim()}</p>
+        <p style="font-weight: normal; margin: 0 0; font-size: 0.85em;">y</p>
+        <p class="guest-name" style="margin: 0 0 0 0;">${nombres[1].trim()}</p>
+      `;
+    } else {
+      // Si no hay " y ", muestra el nombre normalmente
+      guestNameBottom.innerHTML = `<p class="guest-name" style="margin: 0;">${nombre}</p>`;
+    }
+  } else {
+    // Texto por defecto
+    guestNameBottom.innerHTML = `<p class="guest-name" style="margin: 0;">Invitado especial</p>`;
+  }
+});
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
