@@ -468,17 +468,38 @@
             <p class="mb-0"><strong>Banco:</strong> Santander</p>
           </div>
           <button 
-            class="btn btn-custom mt-2" 
-            onclick="copiarCuenta()"
-            style="font-size: 0.8rem; padding: 6px 10px; width: 100%;">
-            Copiar información de la cuenta
-          </button>
+  class="btn btn-custom mt-2" 
+  onclick="copiarCuenta(event)"
+  style="font-size: 0.8rem; padding: 6px 10px; width: 100%;">
+  Copiar información de la cuenta
+</button>
         </div>
       </div>
     </div>
   </div>
 </div>
   <script>
+
+function copiarCuenta(event) {  // ← Agregué 'event' aquí
+  const cuentaDiv = document.getElementById('cuenta-cliente');
+  const textos = Array.from(cuentaDiv.querySelectorAll('p'))
+    .map(p => p.textContent.trim())
+    .filter(text => text && !text.includes('Datos de transferencia'));
+  const infoCuenta = textos.join('\n');
+  
+  navigator.clipboard.writeText(infoCuenta).then(() => {
+    const btn = event.target;  // Ahora 'event' existe
+    const textoOriginal = btn.textContent;
+    btn.textContent = '¡Copiado!';
+    btn.style.backgroundColor = 'var(--color-success)';
+    
+    setTimeout(() => {
+      btn.textContent = textoOriginal;
+      btn.style.backgroundColor = '';
+    }, 2000);
+  });
+}
+
     function toggleGatefold() {
       document.getElementById("gatefoldContainer").classList.toggle("is-open");
     }
